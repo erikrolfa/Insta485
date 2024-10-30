@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <div>
+    <title>insta485</title>
+    <a href="/">home</a>
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    <a href="/explore/">explore</a>
+    &nbsp;
+    <a href="/users/{{ logname }}/">{{ logname }}</a>
+    <br />
+  <!-- 
+    We will tell React to use this div as it's entry-point for rendering 
+    **NOTE**: Make sure to include the "Loading ..." in the div below. 
+    This will display before our React code runs and modifies the DOM!
+  -->
+  <div id="reactEntry">
+    Loading ...
+  </div>
+  <!-- Load JavaScript -->
+  <script type="text/javascript" src="{{ url_for('static', filename='js/bundle.js') }}"></script>
+</div>
+</html>
+
+
+

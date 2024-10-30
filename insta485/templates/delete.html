@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <title>insta485</title>
+  <a href="/">logo</a>
+  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+  <a href="/explore/">explore</a>
+  &nbsp;
+  <a href="/users/{{ logname }}/">{{ logname }}</a>
+  <br />
+    <h3>{{logname}}</h3>
+  <form action="{{url_for('account_update')}}" method="post" enctype="multipart/form-data">
+    <input type="submit" name="delete" value="confirm delete account" id="deletebutt"/>
+    <input type="hidden" name="operation" value="delete"/>
+  </form>
+</div>
+</html>

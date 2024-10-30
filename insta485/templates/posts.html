@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <title>insta485</title>
+  <a href="/">logo</a>
+  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+  <a href="/explore/">explore</a>
+  &nbsp;
+  <a href="/users/{{ logname }}/">{{ logname }}</a>
+  <br />
+  <div>
+    <a href="/users/{{ post_content[0].owner }}/">
+      <img src="/uploads/{{ post_owner[0].filename }}" alt="ProfilePic" />
+    </a>
+    <a href="/users/{{ post_content[0].owner }}/">{{ post_content[0].owner }}</a>
+    &nbsp; &nbsp; &nbsp;
+    <a href="/posts/{{ post_content[0].postid }}/">{{ post_content[0].created }}</a>
+  </div>
+  <div>
+    <img src="/uploads/{{ post_content[0].filename }}" alt="Post Image" />
+    <br />
+    {{ likes[0].likecount }} {% if likes[0].likecount == 1 %}
+    <p>like</p>
+    {% else %}
+    <p>likes</p>
+    {% endif %}
+    <br />
+    {% for item in comments %}
+    <a href="/users/{{ item['owner'] }}/">{{ item['owner']  }}</a>
+    <p>{{ item['text']  }}</p>
+    <br />
+    {% if item['owner'] == logname %}
+    <form action="{{url_for('comment_update')}}" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="operation" value="delete" id="deletecomment"/>
+      <input type="hidden" name="commentid" value="{{ comments['commentid']}}"/>
+      <input type="submit" name="uncomment" value="delete"/>
+    </form>
+    {% endif %}
+    {% endfor %}
+    {% if liked == True %}
+        <form action="{{url_for('like_update')}}" method="post" enctype="multipart/form-data" id="unlikebutt">
+          <input type="hidden" name="operation" value="unlike"/>
+          <input type="hidden" name="postid" value="{{ postid }}"/>
+          <input type="submit" name="unlike" value="unlike"/>
+          </form>
+    {% else %}
+          <form action="{{url_for('like_update')}}" method="post" enctype="multipart/form-data" id="likebutt">
+          <input type="hidden" name="operation" value="like"/>
+          <input type="hidden" name="postid" value="{{ postid }}"/>
+          <input type="submit" name="like" value="like"/>
+          </form>
+    {% endif %}
+    {% if post_content[0].owner == logname %}
+        <form action="{{url_for('post_post')}}" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="operation" value="delete"/>
+            <input type="hidden" name="postid" value="{{postid}}"/>
+            <input type="submit" name="delete" value="delete this post"/>
+        </form>
+    {% endif %}
+    <form action="{{url_for('comment_update')}}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="operation" value="create"/>
+        <input type="hidden" name="postid" value="{{ postid }}"/>
+        <input type="text" name="text" required/>
+        <input type="submit" name="comment" value="comment"/>
+      </form>
+  </div>
+</html>

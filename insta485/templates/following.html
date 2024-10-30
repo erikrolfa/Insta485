@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <title>insta485</title>
+  <a href="/">home</a>
+  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+  <a href="/explore/">explore</a>
+  &nbsp;
+  <a href="/users/{{ logname }}/">{{ logname }}</a>
+  <br />
+  <p>following</p>
+  {% for follow in following %}
+  <div>
+    <img src="/uploads/{{ user_data[follow['username2']][0].filename }}" alt="User Image" />
+    &nbsp;
+    <a href="/users/{{ user_data[follow['username2']][0].username }}/">{{ user_data[follow['username2']][0].username }}</a>
+    &nbsp; &nbsp; &nbsp; &nbsp; 
+    <p>following</p>
+    <form
+      action="{{url_for('follow_update')}}"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <input type="submit" name="unfollow" value="unfollow" id="unfollowbutt"/>
+      <input type="hidden" name="username" value="{{ follow.username2 }}" />
+      <input type="hidden" name="operation" value="unfollow" />
+    </form>
+  </div>
+  {% endfor %}
+</html>
